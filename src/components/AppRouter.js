@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Home from '../pages/Home'
-import Employee from '../pages/Employee'
+const Home = lazy(() => import('../pages/Home'));
+const Employee = lazy(() => import('../pages/Employee'));
 
 function AppRouter () {
   return (

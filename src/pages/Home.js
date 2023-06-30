@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { lazy, useState } from 'react'
 import '../styles/home.css'
 import { Link } from 'react-router-dom'
 import store from '../store'
+const Modal = lazy(() => import('lightest-modal'));
+
 
 export default function Home () {
+  const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -27,6 +30,7 @@ export default function Home () {
   const handleSubmit = (e) => {
     e.preventDefault()
     store.saveEmployee(formData)
+    setShowModal(true)
   }
 
   return (
@@ -135,7 +139,16 @@ export default function Home () {
           <button type="submit">Save</button>
         </form>
       </div>
-      <div>Employee Created!</div>
+      {/* <Modal
+        showModal={showModal}
+        closeModal={() => {setShowModal(false)}}
+      >
+        <div>Employee Created!</div>
+      </Modal> */}
+      <Modal
+        showModal={showModal}
+        closeModal={() => {setShowModal(false)}}
+      />
     </>
   )
 }

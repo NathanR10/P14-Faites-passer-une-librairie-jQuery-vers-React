@@ -1,0 +1,214 @@
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-image: linear-gradient(to right top, #051937, #191e36, #242335, #2c2934, #323034);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #d6d9db;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainFrame {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainTitle {
+  color: deepskyblue;
+  margin-bottom: 30px;
+}
+
+.table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-radius: 4px;
+}
+
+.table tr:nth-child(2n+2) {
+  background-color: #ffffff10;
+}
+
+.tableControls {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.arrowControls {
+  display: flex;
+  gap: 5px;
+}
+
+.tableFrame {
+  max-height: 80vh;
+  overflow: auto;
+  margin-top: 30px;
+}
+
+.controlButton {
+  font-weight: bold;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.tableFixedRow {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #d6d9db;
+  color: #051937;
+  font-weight: bold;
+}
+
+td, th {
+  padding: 10px;
+}
+
+td {
+  text-align: left;
+}
+
+th {
+  text-align: center;
+}
+
+.tableHeaderCell {
+  padding: 10px;
+}
+
+.formMainFrame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.formFrame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 20px;
+}
+
+.horizontalFlex {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  height: fit-content;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.verticalSpacer {
+  background-color: rgba(220, 220, 220, 0.205);
+  width: 2px;
+  height: 200px;
+  margin-top: 20%;
+}
+
+.textLink {
+  text-decoration: none;
+  color: #d6d9db;
+}
+
+.addressTitle {
+  font-style: italic;
+  color: gainsboro;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.addressFrame {
+  position: relative;
+}
+
+.labeledInput {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.labeledInput Label {
+  font-weight: 600;
+}
+
+.labeledInput input, .labeledInput select {
+  background-color: #ffffff10;
+  border: none;
+  padding: 5px 10px;
+  color: #d6d9db;
+  border-bottom: deepskyblue 2px solid;
+  border-radius: 2px;
+}
+
+.validButton {
+  margin-top: 20px;
+  padding: 12px 40px;
+  background-color: deepskyblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 10px;
+}
+
+.address {
+  margin-top: 10px;
+}
+
+.hover-shine {
+  cursor: pointer;
+  position: relative;
+  transition: 0.5s;
+  overflow: hidden;
+}
+
+.hover-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0) 37%, rgba(255,255,255,0.5046612394957983) 37%, rgba(255,255,255,0.5018601190476191) 63%, rgba(255,255,255,0) 63%);
+  transition: 0.5s;
+}
+
+.hover-shine:hover::before {
+  left: 100%;
+}

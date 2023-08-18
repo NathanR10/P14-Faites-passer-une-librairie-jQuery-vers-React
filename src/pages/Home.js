@@ -1,7 +1,7 @@
 import React, { lazy, useState } from 'react'
-import '../styles/home.css'
 import { Link } from 'react-router-dom'
 import store from '../store'
+import LabeledInput from '../components/LabeledInput';
 const Modal = lazy(() => import('lightest-modal'));
 
 
@@ -12,7 +12,7 @@ export default function Home () {
     lastName: '',
     dateOfBirth: '',
     startDate: '',
-    department: store.states[0].name,
+    department: store.getStates()[0].name,
     street: '',
     city: '',
     state: 'Sales',
@@ -31,124 +31,41 @@ export default function Home () {
     e.preventDefault()
     store.saveEmployee(formData)
     setShowModal(true)
+    store.addEmployee(formData)
   }
 
   return (
-    <>
-      <div>
-        <h1>HRnet</h1>
-      </div>
-      <div>
-        <Link to="/Employee">View Current Employees</Link>
+    <div className='mainFrame'>
+      <h1 className='mainTitle'>HRnet</h1>
+      <div className='formMainFrame'>
+        <Link to="/Employee" className='textLink hover-shine'>View Current Employees 📋</Link>
         <h2>Create Employee</h2>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="first-name">First Name</label>
-          <input
-            required
-            type="text"
-            id="first-name"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-          <label htmlFor="last-name">Last Name</label>
-          <input
-            required
-            type="text"
-            id="last-name"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-          <label htmlFor="date-of-birth">Date of Birth</label>
-          <input
-            required
-            id="date-of-birth"
-            type="text"
-            name="dateOfBirth"
-            value={formData.dateOfBirth}
-            onChange={handleChange}
-          />
-          <label htmlFor="start-date">Start Date</label>
-          <input
-            required
-            id="start-date"
-            type="text"
-            name="startDate"
-            value={formData.startDate}
-            onChange={handleChange}
-          />
-          <fieldset>
-            <legend>Address</legend>
-            <label htmlFor="street">Street</label>
-            <input
-              required
-              id="street"
-              type="text"
-              name="street"
-              value={formData.street}
-              onChange={handleChange}
-            />
-            <label htmlFor="city">City</label>
-            <input
-              required
-              id="city"
-              type="text"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-            />
-            <label htmlFor="state">State</label>
-            <select
-              required
-              name="state"
-              id="state"
-              value={formData.state}
-              onChange={handleChange}
-            >
-              {store.states.map((state, index) => (
-              <option key={index} value={state.name}>
-                {state.name}
-              </option>
-              ))}
-            </select>
-            <label htmlFor="zip-code">Zip Code</label>
-            <input
-              required
-              id="zip-code"
-              type="number"
-              name="zipCode"
-              value={formData.zipCode}
-              onChange={handleChange}
-            />
-          </fieldset>
-          <label htmlFor="department">Department</label>
-          <select
-            required
-            name="department"
-            id="department"
-            value={formData.department}
-            onChange={handleChange}
-          >
-            <option>Sales</option>
-            <option>Marketing</option>
-            <option>Engineering</option>
-            <option>Human Resources</option>
-            <option>Legal</option>
-          </select>
-          <button type="submit">Save</button>
+        <form onSubmit={handleSubmit} className='formFrame'>
+          <div className='horizontalFlex'>
+            <div>
+              <LabeledInput label={'First Name'} value={formData.firstName} onChange={handleChange} name={'firstName'} required />
+              <LabeledInput label={'Last Name'} value={formData.lastName} onChange={handleChange} name={'lastName'} required />
+              <LabeledInput label={'Date of Birth'} value={formData.dateOfBirth} onChange={handleChange} name={'dateOfBirth'} required />
+              <LabeledInput label={'Start Date'} value={formData.startDate} onChange={handleChange} name={'startDate'} required />
+              <LabeledInput label={'Department'} value={formData.department} data={store.getDepartments()} onChange={handleChange} name={'department'} type='select' required />
+            </div>
+            <div className='verticalSpacer'></div>
+            <div className='addressFrame'>
+              <legend className='addressTitle'>Address</legend>
+              <LabeledInput label={'Street'} value={formData.street} onChange={handleChange} name={'street'} required />
+              <LabeledInput label={'City'} value={formData.city} onChange={handleChange} name={'city'} required />
+              <LabeledInput label={'State'} value={formData.state} data={store.getStates()} onChange={handleChange} name={'state'} type='select' required />
+              <LabeledInput label={'Zip Code'} value={formData.zipCode} onChange={handleChange} name={'zipCode'} required />
+            </div>
+          </div>
+          <button type="submit" className='validButton hover-shine'>Save</button>
         </form>
       </div>
-      {/* <Modal
-        showModal={showModal}
-        closeModal={() => {setShowModal(false)}}
-      >
-        <div>Employee Created!</div>
-      </Modal> */}
       <Modal
         showModal={showModal}
         closeModal={() => {setShowModal(false)}}
+        label={'Employee Created!'}
       />
-    </>
+    </div>
   )
 }

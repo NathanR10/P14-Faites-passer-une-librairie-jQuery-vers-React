@@ -1,22 +1,17 @@
 import React from 'react';
-import { useTable, useSortBy, usePagination } from 'react-table';
+import { useTable, useSortBy, usePagination, useGlobalFilter } from 'react-table';
+import LabeledInput from './LabeledInput';
 
 export default function SortableTable ({ data }) {
   const columns = React.useMemo(() => {
     if (data.length === 0) {
-      return []; // Si aucune donnée n'est fournie, retourner un tableau de colonnes vide
+      return [];
     }
 
-    return Object.keys(data[0]).map(key => {
-      const formattedHeader = key
-        .replace(/([A-Z])/g, ' $1') // Ajoute un espace avant chaque majuscule
-        .replace(/^./, str => str.toUpperCase()); // Met la première lettre en majuscule
-
-      return {
-        Header: formattedHeader,
-        accessor: key,
-      };
-    });
+    return Object.keys(data[0]).map(key => ({
+      Header: key,
+      accessor: key,
+    }));
   }, [data]);
 
   const {
@@ -34,53 +29,68 @@ export default function SortableTable ({ data }) {
     canPreviousPage,
     pageCount,
     pageOptions,
+    setGlobalFilter,
+    state,
   } = useTable(
     {
       columns,
       data,
       initialState: { pageIndex: 0, pageSize: 10 },
     },
+    useGlobalFilter, // Placez useGlobalFilter avant usePagination
     useSortBy,
     usePagination
   );
   
-    return (
-      <div>
-        <div className='tableFrame'>
-          <table className='table' {...getTableProps()}>
-            <thead>
-              {headerGroups.map(headerGroup => (
-                <tr className='tableFixedRow' {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map(column => (
-                    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                      {column.render('Header')}
-                      <span>
-                        {column.isSorted
-                          ? column.isSortedDesc
-                            ? ' 🔽'
-                            : ' 🔼'
-                          : ''}
-                      </span>
-                    </th>
+  
+  const { globalFilter } = state;
+
+  return (
+    <div>
+      <div className='tableSearchInput'>
+        <LabeledInput
+          label={'Rechercher dans toutes les colonnes'}
+          value={globalFilter || ''}
+          onChange={value => setGlobalFilter(value.target.value || undefined)}
+          name={'Rechercher dans toutes les colonnes...'}
+          required
+        />
+      </div>
+      <div className='tableFrame'>
+        <table className='table' {...getTableProps()}>
+          <thead>
+            {headerGroups.map(headerGroup => (
+              <tr className='tableFixedRow' {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map(column => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                    {column.render('Header')}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? ' 🔽'
+                          : ' 🔼'
+                        : ''}
+                    </span>
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map(row => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map(cell => (
+                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                   ))}
                 </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {page.map(row => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map(cell => (
-                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-        <div className='tableControls'>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div className='tableControls'>
           <div className='arrowControls'>
             <button className='controlButton hover-shine' onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
               {'<<'}

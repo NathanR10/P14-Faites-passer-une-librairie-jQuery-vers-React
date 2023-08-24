@@ -29,6 +29,8 @@ body {
   border-spacing: 0;
   border-collapse: collapse;
   border-radius: 4px;
+  table-layout: auto;
+  width: 100%;
 }
 
 .table tr:nth-child(2n+2) {
@@ -39,6 +41,9 @@ body {
   padding-top: 30px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
 }
 
 .arrowControls {
@@ -47,9 +52,17 @@ body {
 }
 
 .tableFrame {
-  max-height: 80vh;
+  max-height: calc(90vh - 300px);
+  width: 80vw;
   overflow: auto;
   margin-top: 30px;
+  max-width: 1280px;
+  margin: auto;
+}
+
+.tableSearchInput {
+  max-width: 400px;
+  margin-bottom: 30px;
 }
 
 .controlButton {
@@ -189,6 +202,11 @@ label {
 
 .address {
   margin-top: 10px;
+}
+
+.modalContent {
+  color: #323034;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .hover-shine {

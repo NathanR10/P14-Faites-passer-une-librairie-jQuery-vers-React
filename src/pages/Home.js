@@ -29,7 +29,6 @@ export default function Home () {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    store.saveEmployee(formData)
     setShowModal(true)
     store.addEmployee(formData)
   }

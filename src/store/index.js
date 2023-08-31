@@ -45,27 +45,6 @@ const store = {
   addEmployee(payload) {
     this.employees.push(payload);
     this.saveStoreToLocalStorage(); // Mettre à jour le localStorage après ajout
-  },
-  saveEmployee({
-    firstName,
-    lastName,
-    dateOfBirth,
-    startDate,
-    department,
-    street,
-    city,
-    state,
-    zipCode
-  }) {
-    console.log(firstName);
-    console.log(lastName);
-    console.log(dateOfBirth);
-    console.log(startDate);
-    console.log(department);
-    console.log(street);
-    console.log(city);
-    console.log(state);
-    console.log(zipCode);
   }
 };
 

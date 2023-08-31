@@ -3,7 +3,7 @@
 ## Required
 
 - Node >= 20.x
-- npm >= = 9.x
+- npm >= 9.x
 
 ## Setup
 

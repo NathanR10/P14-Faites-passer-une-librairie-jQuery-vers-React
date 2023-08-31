@@ -1,5 +1,10 @@
 # HRnet
 
+## Required
+
+- Node >= 20.x
+- npm >= = 9.x
+
 ## Setup
 
 In the project directory, using yarn or npm, install project with the following :
